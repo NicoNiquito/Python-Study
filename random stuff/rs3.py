@@ -1,4 +1,3 @@
-#-> Desafio 3
 #   ->Crie um script Python que leia dois números e mostre a soma entre eles
 
 num1 = int(input('Diga um número'))

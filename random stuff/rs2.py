@@ -1,4 +1,3 @@
-#-> Desafio 2
 #   ->Crie um script Python que leia a data, o mês e o ano de nascimento de uma pessoa e mostre uma mensagem com a data formatada
 
 data = input('Em que dia você nasceu?')
