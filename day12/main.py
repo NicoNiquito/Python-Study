@@ -25,7 +25,7 @@ elif difficulty == 'hard':
     print(f'You have {lives} attempts remaining to guess the number.')
     
 random_number = random.randint(1, 100) # pega um número aleatório entre 1 e 100
-print(random_number)
+#print(random_number)
 
 
 
