@@ -1,102 +1,57 @@
-# Higher or Lower Game objectives:
+# Higher or Lower Game
  
-# show the ASCIIS 
-# select a random A and B value from game_data
-# print A and B
-# ask for which of them has more followers
-# if the answer is right + 1 point, if wrong end game and show score
-# if right then B = A and select a new B
-# clear console and print all again
-
-
 from art import logo, vs
 from game_data import data
 import random
 #from replit import clear
 
-#clear()
-#print(logo)
+def resume(account):
+    name = account['name']
+    description = account['description']
+    country = account['country']
+    return f'{name}, a {description}, from {country}.'
 
-a = random.choice(data)
-print(a)
-
-b = random.choice(data)
-print(b)
-
-while a == b:
-  b = random.choice(data)
-print(b)
-
-def resume_a():
-  name = a['name']
-  description = a['description']
-  country = a['country']
-  return f'Compare A: {name}, a {description}, from {country}.'
-
-def resume_b():
-  name = b['name']
-  description = b['description']
-  country = b['country']
-  return f'Against B: {name}, a {description}, from {country}.'
-
-guess = input('Who has more followers? Type \'A\' or \'B\': ').lower()
-
-def compare():
-    if int(a['follower_count']) > int(b['follower_count']):
-        return 'a' 
+def comparison(guess, a_followers, b_followers):
+    if a_followers > b_followers:
+        return guess == 'a'
     else:
-       return 'b'
+        return guess == 'b'
 
 score = 0
+print(logo)
 
-if compare() == guess:
-   score += 1
-   #clear()
-   print(logo)
-   print(f'You\'re right! Current score: {score}.')
-else:
-   game_over = True
+game_over = False
 
+b= random.choice(data)
 
-def game():
-   print(logo)
-   score = 0
-   while not game_over:
-    a = random.choice(data)
+while not game_over:
+    a = b
     b = random.choice(data)
-    
-    while a == b:
+
+    while b == a:
         b = random.choice(data)
 
-    def resume_a():
-        name = a['name']
-        description = a['description']
-        country = a['country']
-        return f'Compare A: {name}, a {description}, from {country}.'
-    
-    def resume_b():
-        name = b['name']
-        description = b['description']
-        country = b['country']
-        return f'Against B: {name}, a {description}, from {country}.'
-    
-    print(resume_a())
+
+    print(f'Compare A: {resume(a)}')
     print(vs)
-    print(resume_b())
-    
-    guess = input('Who has more followers? Type \'A\' or \'B\': ').lower()
+    print(f'Against B : {resume(b)}')
 
-    def compare():
-        if int(a['follower_count']) > int(b['follower_count']):
-            return 'a' 
-        else:
-            return 'b'
-        
-    if compare() == guess:
+
+    guess = input('Who was more followers? Type \'A\' or \'B\': ').lower()
+
+    a_followers = a['follower_count']
+    b_followers = b['follower_count']
+
+    right_answer = comparison(guess, a_followers, b_followers)
+
+    #clear()
+    #print(logo)
+
+    if right_answer:
         score += 1
-        #clear()
-        game()
         
-
+        print(f'You\'re right!    Current score: {score}')
     else:
         game_over = True
+        print(f'Nope, that\'s wrong. Final score: {score}')
+        
