@@ -43,13 +43,31 @@ def ingredients_ok(ingredients):
 
 
 def insert_coins():
+    print('Insert your coins.')
     total = 0
     total += int(input('How many quarters?: ')) * 0.25
     total += int(input('How many dimes?: ')) * 0.10
     total += int(input('How many nickels?: ')) * 0.05
     total += int(input('How many pennies?: ')) * 0.01
-    print('Insert your coins.')
     return total
+
+
+def transition_ok(inserted_money, price):
+    if inserted_money >= price:
+        troco = round(inserted_money - price, 2)
+        print(f'Here is ${troco} in change.')
+        global balance
+        balance += price
+        return True
+    else:
+        print('Sorry, that\'s not enough money.')
+        return False
+
+
+def prepare_drink(drink_name, ingredients):
+    for i in ingredients:
+        resources[i] -= ingredients[i]
+    print(f'Here is your {drink_name}. Enjoy!')
 
 
 power_on = True
@@ -67,4 +85,5 @@ while power_on:
         product = MENU[drink]   # usa da escolha do usuário pra procurar no dictionary
         if ingredients_ok(product['ingredients']):
             payment = insert_coins()
-            
+            if transition_ok(payment, product['cost']):
+                prepare_drink(drink, product['ingredients'])
